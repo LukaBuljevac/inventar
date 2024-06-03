@@ -7,17 +7,17 @@
 
 #define FILENAME "inventory.bin"
 
-Product* inventory = NULL; 
-int productCount = 0;     
+Product* inventory = NULL;
+int productCount = 0;
 
-void toLowerCase(char* str) {
-    if (str == NULL) return; // Provjera nul-pokazivaèa
+static void toLowerCase(char* str) {
+    if (str == NULL) return;
     for (int i = 0; str[i]; i++) {
         str[i] = tolower((unsigned char)str[i]);
     }
 }
 
-int idExists(int id) {
+static int idExists(int id) {
     for (int i = 0; i < productCount; i++) {
         if (inventory[i].id == id) {
             return 1;
@@ -27,13 +27,13 @@ int idExists(int id) {
 }
 
 int getValidInt(const char* prompt) {
-    if (prompt == NULL) return -1; // Provjera nul-pokazivaèa
+    if (prompt == NULL) return -1;
     int value;
     char input[100];
     while (1) {
         printf("%s", prompt);
         if (fgets(input, sizeof(input), stdin)) {
-            input[strcspn(input, "\n")] = '\0'; 
+            input[strcspn(input, "\n")] = '\0';
             if (sscanf(input, "%d", &value) == 1) {
                 return value;
             }
@@ -43,7 +43,7 @@ int getValidInt(const char* prompt) {
 }
 
 float getValidFloat(const char* prompt) {
-    if (prompt == NULL) return -1.0f; 
+    if (prompt == NULL) return -1.0f;
     float value;
     char input[100];
     while (1) {
@@ -59,13 +59,13 @@ float getValidFloat(const char* prompt) {
 }
 
 void getValidString(const char* prompt, char* output, int maxLength) {
-    if (prompt == NULL || output == NULL || maxLength <= 0) return; // Provjera nul-pokazivaèa i duljine
+    if (prompt == NULL || output == NULL || maxLength <= 0) return;
     char input[100];
     while (1) {
         printf("%s", prompt);
         if (fgets(input, sizeof(input), stdin)) {
             if (strlen(input) <= maxLength) {
-                input[strcspn(input, "\n")] = '\0'; 
+                input[strcspn(input, "\n")] = '\0';
                 strncpy(output, input, maxLength);
                 return;
             }
@@ -185,7 +185,7 @@ void deleteAllProducts() {
     char choice;
     printf("Jeste li sigurni da zelite izbrisati sve proizvode? (d/n): ");
     choice = getchar();
-    getchar(); 
+    getchar();
 
     if (choice == 'd' || choice == 'D') {
         free(inventory);
@@ -311,7 +311,7 @@ void saveProducts() {
     }
     fwrite(inventory, sizeof(Product), productCount, file);
 
-    // Provjera pozicije pokazivaèa
+    // Provjera pozicije pokazivaca
     long pos = ftell(file);
     printf("Upisano je %ld bajtova u datoteku.\n", pos);
 
@@ -321,11 +321,8 @@ void saveProducts() {
 void loadProducts() {
     FILE* file = fopen(FILENAME, "rb");
     if (file) {
-        // Pomakni pokazivaè na kraj datoteke
         fseek(file, 0, SEEK_END);
-        // Dobij velièinu datoteke
         long fileSize = ftell(file);
-        // Vrati pokazivaè na poèetak datoteke
         rewind(file);
 
         productCount = fileSize / sizeof(Product);
@@ -361,5 +358,3 @@ void renameInventoryFile() {
         perror("Greska pri preimenovanju datoteke");
     }
 }
-
-

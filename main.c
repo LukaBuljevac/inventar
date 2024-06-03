@@ -21,10 +21,10 @@ void displayMenu() {
 }
 
 int main() {
-    loadProducts(); // Ucitaj proizvode iz datoteke
+    loadProducts();
     int choice;
     do {
-        displayMenu(); // Prikazi izbornik
+        displayMenu();
         choice = getValidInt("Unesite svoj izbor: ");
         switch (choice) {
         case 1:
@@ -41,11 +41,11 @@ int main() {
             break;
         case 5:
             sortProductsByPriceAscending();
-            printProducts();  // Prikaz sortiranih proizvoda nakon sortiranja
+            printProducts();
             break;
         case 6:
             sortProductsByPriceDescending();
-            printProducts();  // Prikaz sortiranih proizvoda nakon sortiranja
+            printProducts();
             break;
         case 7:
             searchByType();
@@ -77,8 +77,8 @@ int main() {
     } while (choice != 12);
 
     if (inventory != NULL) {
-        free(inventory); // Oslobadjanje memorije prije izlaska
-        inventory = NULL; // Anuliranje pokazivaèa kako bi se sprijeèilo double free
+        free(inventory);
+        inventory = NULL;
     }
 
     return 0;

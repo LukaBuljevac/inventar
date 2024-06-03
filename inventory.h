@@ -7,12 +7,10 @@
 #include <string.h>
 #include <ctype.h>
 
-// Definicije konstanti za maksimalne duljine stringova
 #define MAX_NAME 50
-#define MAX_TYPE 20
+#define MAX_TYPE 50
 #define MAX_MANUFACTURER 50
 
-// Struktura koja predstavlja proizvod
 typedef struct {
     int id;
     char name[MAX_NAME];
@@ -22,10 +20,8 @@ typedef struct {
     int amount;
 } Product;
 
-
 extern Product* inventory;
-extern int productCount;  
-
+extern int productCount;
 
 void insertProduct();
 void printProducts();
@@ -33,7 +29,7 @@ void deleteProduct();
 void deleteProductByID();
 void editProduct();
 void sortProductsByPriceAscending();
-void sortProductsByPriceDescending(); 
+void sortProductsByPriceDescending();
 void searchByType();
 void searchByManufacturer();
 void searchByID();
